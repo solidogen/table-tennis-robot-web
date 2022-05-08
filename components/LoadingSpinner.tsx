@@ -6,7 +6,7 @@ const LoadingSpinner = (props: LoadingSpinnerProps) => {
   if (props.isLoading) {
     return <div>Loading...</div>
   } else {
-    return null
+    return <div>Settings saved</div>
   }
 }
 

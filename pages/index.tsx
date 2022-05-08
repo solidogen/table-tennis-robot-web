@@ -2,8 +2,9 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import Switch from 'react-switch'
 import { SetDiodeStatusRequest } from '../model/SetDiodeStatusRequest'
-import LoadingSpinner from './components/LoadingSpinner'
+import LoadingSpinner from '../components/LoadingSpinner'
 import { parseBoolean } from '../lib/utils'
+import Header from "../components/Header"
 
 const HomePage = () => {
   const [isChecked, setChecked] = useState(false)
@@ -51,7 +52,11 @@ const HomePage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>todo header component</h1>
+      <Header />
+
+      <div className="flex flex-row p-2">
+        <LoadingSpinner isLoading={isChangingDiodeState} />
+      </div>
 
       <div className="flex h-screen flex-col items-center justify-center">
         <Switch
@@ -65,7 +70,6 @@ const HomePage = () => {
         <p className="mt-2">
           Diode <span>{isChecked ? 'enabled' : 'disabled'}</span>
         </p>
-        <LoadingSpinner isLoading={isChangingDiodeState} />
 
         {/* Test view on top */}
         <div className="container relative mx-auto w-1/2 bg-gray-500 p-4">
