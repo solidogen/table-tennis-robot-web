@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Switch from 'react-switch'
 import { SetDiodeStatusRequest } from '../model/SetDiodeStatusRequest'
 import LoadingSpinner from './components/LoadingSpinner'
-import { parseBoolean } from './lib/utils'
+import { parseBoolean } from '../lib/utils'
 
 const HomePage = () => {
   const [isChecked, setChecked] = useState(false)
