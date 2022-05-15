@@ -1,7 +1,9 @@
 # espruino-ts-quickstart
 Quickstart for Espruino using typescript and Visual Studio Code IDE
+Taken from: https://www.espruino.com/Typescript+and+Visual+Studio+Code+IDE 
 
-
+## Flashing
+http://forum.espruino.com/conversations/311849/
 
 
 > esptool.py --port /dev/ttyUSB0 flash_id
@@ -27,10 +29,11 @@ Hard resetting via RTS pin...
 
 mkdir 'nodemcu-firmware' && cd 'nodemcu-firmware' # create firmware directory and enter it
 mkdir 'espruino' && cd 'espruino' # create espruino directory and enter it
-curl -O 'http://www.espruino.com/binaries/travis/master/espruino_1v94.136_esp8266_4mb.tgz' # download the firmware
+curl -O 'http://www.espruino.com/binaries/travis/master/espruino_2v13.84_esp8266_4mb.tgz' # download the firmware
 tar -xvzf espruino_2v13.84_esp8266_4mb.tgz # upack the .tgz file
 rm espruino_2v13.84_esp8266_4mb.tgz # if tar was success full clean up and remove .tgz file
 cd espruino_2v13.84_esp8266_4mb # enter the new extracted directory
 
+esptool.py --port /dev/ttyUSB0 erase_flash
 
-espruino_2v13.84_esp8266_4mb.tgz
+esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --verify --flash_freq 80m --flash_mode dio --flash_size 32m 0x0000 "boot_v1.6.bin" 0x1000 espruino_esp8266_user1.bin 0x3FC000 esp_init_data_default.bin 0x37E000 blank.bin

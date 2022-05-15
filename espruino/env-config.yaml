@@ -1,7 +1,13 @@
 # Port where mcu device is located
-port: COM4
+port: /dev/ttyUSB0
 
 # ESP32 after flash has 115200 speed.
 port_speed: 115200
 
-board: ESP32
+# Might be ESP8266_BOARD or ESP8266EX as well?
+board: ESP8266
+
+
+
+# For now use the web ide etc.
+# if diode works, I can try to upload via VSC
