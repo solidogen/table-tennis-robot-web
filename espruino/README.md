@@ -1,6 +1,6 @@
 # espruino-ts-quickstart
 Quickstart for Espruino using typescript and Visual Studio Code IDE
-Taken from: https://www.espruino.com/Typescript+and+Visual+Studio+Code+IDE 
+Source: https://www.espruino.com/Typescript+and+Visual+Studio+Code+IDE 
 
 ## Flashing
 http://forum.espruino.com/conversations/311849/
