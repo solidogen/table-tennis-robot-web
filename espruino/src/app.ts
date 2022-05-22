@@ -3,14 +3,15 @@ import appConfig from './app-config'
 let wifi = require('Wifi')
 let httpClient = require('http')
 
+const ssid = appConfig.ssid
+const wifiPassword = appConfig.wifiPassword
+
 const getDiodeStatusEndpoint =
   'https://table-tennis-robot-web.vercel.app/api/diode' // (everything gets 308, vercel does some stupid hacks I think)
+  // `http://${appConfig.pcLocalIP}:3000/api/diode` /* (cannot create socket for localhost)*/ 
 // 'https://vercel.app'  (same behavior, always 308, it's whole site behavior)
 // 'https://google.com'  (works fine - data in chunks, gets html)
 // 'https://weightreductor.herokuapp.com/'  (works fine - gets plain text from rest)
-
-const ssid = appConfig.ssid
-const wifiPassword = appConfig.wifiPassword
 
 function printObject(object1: Object) {
   for (const key of Object.keys(object1) as (keyof typeof object1)[]) {
@@ -36,16 +37,14 @@ function fetchDiodeStatus() {
     })
     res.on('close', function (hadError: boolean) {
       console.log('\nConnection closed. Had error: ' + hadError)
-      console.log('\n\n')
-      console.log('Full response body: ' + responseBody)
+      console.log('\nFull response body: ' + responseBody)
 
       console.log('Res:')
       printObject(res)
-      console.log('\n\n')
 
-      console.log('Res status: ' + res.statusCode)
+      console.log('\nRes status: ' + res.statusCode)
       console.log('Res message: ' + res.statusMessage)
-      console.log('Res headers:')
+      console.log('\nRes headers:')
       printObject(res.headers)
 
       // if (res.statusCode == 308) {
@@ -57,10 +56,10 @@ function fetchDiodeStatus() {
     })
   })
 
-  console.log('Request:')
-  printObject(request)
-  printObject(request.opt)
-  printObject(request.opt.headers)
+  // console.log('Request:')
+  // printObject(request)
+  // printObject(request.opt)
+  // printObject(request.opt.headers)
 }
 
 function connectToWifi() {
