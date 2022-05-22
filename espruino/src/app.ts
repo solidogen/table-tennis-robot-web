@@ -1,20 +1,31 @@
-import appConfig from "./app-config"
+import appConfig from './app-config'
 
 let wifi = require('Wifi')
 let httpClient = require('http')
 
 const getDiodeStatusEndpoint =
   'https://table-tennis-robot-web.vercel.app/api/diode' // (everything gets 308, vercel does some stupid hacks I think)
-  // 'https://vercel.app'  (same behavior, always 308, it's whole site behavior)
-  // 'https://google.com'  (works fine - data in chunks, gets html)
-  // 'https://weightreductor.herokuapp.com/'  (works fine - gets plain text from rest)
+// 'https://vercel.app'  (same behavior, always 308, it's whole site behavior)
+// 'https://google.com'  (works fine - data in chunks, gets html)
+// 'https://weightreductor.herokuapp.com/'  (works fine - gets plain text from rest)
 
 const ssid = appConfig.ssid
 const wifiPassword = appConfig.wifiPassword
 
+function printObject(object1: Object) {
+  for (const key of Object.keys(object1) as (keyof typeof object1)[]) {
+    console.log(`${key}: ${object1[key]}`)
+  }
+}
+
 function fetchDiodeStatus() {
-  httpClient.get(getDiodeStatusEndpoint, function (res: any) {
-    var responseBody = ""
+  var requestOptions = url.parse(getDiodeStatusEndpoint, false)
+  requestOptions.headers = {
+    Accept: '*/*',
+    Connection: 'keep-alive',
+  }
+  var request = httpClient.get(requestOptions, function (res: any) {
+    var responseBody = ''
 
     // todo - extract api call to method with callback
     // todo - add Accept */* header
@@ -25,15 +36,17 @@ function fetchDiodeStatus() {
     })
     res.on('close', function (hadError: boolean) {
       console.log('\nConnection closed. Had error: ' + hadError)
-      console.log("\n\n")
-      console.log("Full response body: " + responseBody)
+      console.log('\n\n')
+      console.log('Full response body: ' + responseBody)
 
-      console.log("Res:")
-      Object.keys(res).forEach((prop)=> console.log(prop));
+      console.log('Res:')
+      printObject(res)
+      console.log('\n\n')
 
-      console.log("Res status: " + res.statusCode)
-      console.log("Res message: " + res.statusMessage)
-      console.log("Res headers: " + JSON.stringify(res.headers))
+      console.log('Res status: ' + res.statusCode)
+      console.log('Res message: ' + res.statusMessage)
+      console.log('Res headers:')
+      printObject(res.headers)
 
       // if (res.statusCode == 308) {
       //   fetchDiodeStatus()
@@ -43,6 +56,11 @@ function fetchDiodeStatus() {
       console.log('\nERROR:\n' + data)
     })
   })
+
+  console.log('Request:')
+  printObject(request)
+  printObject(request.opt)
+  printObject(request.opt.headers)
 }
 
 function connectToWifi() {
