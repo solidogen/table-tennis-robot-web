@@ -2,6 +2,9 @@
 Quickstart for Espruino using typescript and Visual Studio Code IDE
 Source: https://www.espruino.com/Typescript+and+Visual+Studio+Code+IDE 
 
+## Secrets
+Instead of app-config.yaml, create app-config.user.yaml (already ignored) for safely adding stuff like ssid etc. 
+
 ## Flashing
 http://forum.espruino.com/conversations/311849/
 
