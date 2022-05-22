@@ -40,7 +40,7 @@ function fetchDiodeStatus() {
       console.log('\nConnection closed. Had error: ' + hadError)
       console.log('\nFull response body: ' + responseBody)
 
-      console.log('Res:')
+      console.log('\nRes:')
       printObject(res)
 
       console.log('\nRes status: ' + res.statusCode)
