@@ -6,13 +6,19 @@ let httpClient = require('http')
 const ssid = appConfig.ssid
 const wifiPassword = appConfig.wifiPassword
 
-const getDiodeStatusEndpoint =
-  'https://tt-robot.netlify.app/api/diode'
-// 'https://table-tennis-robot-web.vercel.app/api/diode' // (everything gets 308, vercel does some stupid hacks I think)
+const getDiodeStatusEndpoint = 
+  'https://tt-robot.netlify.app/api/diode' // (301 on netlify, next.js does some stupid hacks I think)
+// 'https://table-tennis-robot-web.vercel.app/api/diode' // (308 on netlify, next.js does some stupid hacks I think)
+
 // `http://${appConfig.pcLocalIP}:3000/api/diode` /* (cannot create socket for localhost)*/
+
+// 'https://www.att.com/' // (also built with next.js, 301)
 // 'https://vercel.app'  (same behavior, always 308, it's whole site behavior)
+
 // 'https://google.com'  (works fine - data in chunks, gets html)
 // 'https://weightreductor.herokuapp.com/'  (works fine - gets plain text from rest)
+
+
 
 function printObject(object1: Object) {
   for (const key of Object.keys(object1) as (keyof typeof object1)[]) {
@@ -53,14 +59,18 @@ function fetchDiodeStatus() {
       // }
     })
     res.on('error', function (data: any) {
-      console.log('\nERROR:\n' + data)
+      console.log('\nResponse error::\n' + data)
     })
   })
 
-  // console.log('Request:')
-  // printObject(request)
-  // printObject(request.opt)
-  // printObject(request.opt.headers)
+  request.on('error', function (data: any) {
+    console.log('\nRequest error:\n' + data)
+  })
+
+  console.log('\nRequest:')
+  printObject(request)
+  printObject(request.opt)
+  printObject(request.opt.headers)
 }
 
 function connectToWifi() {
