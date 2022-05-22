@@ -7,8 +7,9 @@ const ssid = appConfig.ssid
 const wifiPassword = appConfig.wifiPassword
 
 const getDiodeStatusEndpoint =
-  'https://table-tennis-robot-web.vercel.app/api/diode' // (everything gets 308, vercel does some stupid hacks I think)
-  // `http://${appConfig.pcLocalIP}:3000/api/diode` /* (cannot create socket for localhost)*/ 
+  'https://tt-robot.netlify.app/api/diode'
+// 'https://table-tennis-robot-web.vercel.app/api/diode' // (everything gets 308, vercel does some stupid hacks I think)
+// `http://${appConfig.pcLocalIP}:3000/api/diode` /* (cannot create socket for localhost)*/
 // 'https://vercel.app'  (same behavior, always 308, it's whole site behavior)
 // 'https://google.com'  (works fine - data in chunks, gets html)
 // 'https://weightreductor.herokuapp.com/'  (works fine - gets plain text from rest)
@@ -47,7 +48,7 @@ function fetchDiodeStatus() {
       console.log('\nRes headers:')
       printObject(res.headers)
 
-      // if (res.statusCode == 308) {
+      // if (res.statusCode == 301) {
       //   fetchDiodeStatus()
       // }
     })
