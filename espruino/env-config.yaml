@@ -4,8 +4,8 @@ port: /dev/ttyUSB0
 # ESP32 after flash has 115200 speed.
 port_speed: 115200
 
-# Might be ESP8266_BOARD or ESP8266EX as well?
-board: ESP8266
+# Might be ESP8266_BOARD or ESP8266_4MB
+board: ESP8266_4MB
 
 
 
