@@ -8,7 +8,7 @@ const wifiPassword = appConfig.wifiPassword
 
 const getDiodeStatusEndpoint = 
   'https://tt-robot.netlify.app/api/diode' // (301 on netlify, next.js does some stupid hacks I think)
-// 'https://table-tennis-robot-web.vercel.app/api/diode' // (308 on netlify, next.js does some stupid hacks I think)
+// 'https://table-tennis-robot-web.vercel.app/api/diode' // (308 on vercel, next.js does some stupid hacks I think)
 
 // `http://${appConfig.pcLocalIP}:3000/api/diode` /* (cannot create socket for localhost)*/
 
