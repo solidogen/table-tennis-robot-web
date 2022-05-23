@@ -50,7 +50,9 @@ function fetchDiodeStatus() {
   })
 
   request.on('error', function (data: any) {
-    console.log('\nRequest error:\n' + data)
+    console.log('\nRequest error:\n' + data) // I have an error here after reconnecting the device, visible in printObject
+    printObject(data)
+    connectToWifi() // this is probably overkill, I need some return type with extra data from networking wrapper
   })
 }
 
@@ -68,5 +70,13 @@ function setupDiode() {
 }
 
 // calling logic here atm, todo move to classes
-setupDiode()
-connectToWifi()
+
+// this works but it has long delay, to refactor
+setTimeout(() => {
+  console.log('I: DEVICE LOGIC STARTS')
+  setInterval(() => {
+    console.log('I: device running')
+  }, 2000)
+  setupDiode()
+  connectToWifi()
+}, 5000)

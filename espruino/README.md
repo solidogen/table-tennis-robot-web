@@ -1,9 +1,17 @@
 # espruino-ts-quickstart
 Quickstart for Espruino using typescript and Visual Studio Code IDE
+
 Source: https://www.espruino.com/Typescript+and+Visual+Studio+Code+IDE 
 
 ## Secrets
 Instead of app-config.yaml, create app-config.user.yaml (already ignored) for safely adding stuff like ssid etc. 
+
+## Code saving to flash memory
+Code can be persisted to espruino-powered board by running `save()` command in espruino console.
+Without it, newly uploaded code will be erased on restart (possibly returning to latest saved code).
+Clear existing program with `clear()` followed by `save()`
+
+Source: https://www.espruino.com/Saving 
 
 ## Flashing
 http://forum.espruino.com/conversations/311849/
