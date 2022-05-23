@@ -13,6 +13,12 @@ Clear existing program with `clear()` followed by `save()`
 
 Source: https://www.espruino.com/Saving 
 
+## Fast bulding/sending/console operations
+A few npm (internally gulp) scripts exist:
+- build (compilation only)
+- espruino-console (opens console I/O, we can read from console.log and give commands like `save()`)
+- send-to-espruino-console (sends the program to the board, writes to console output if it's open. needs build script first)
+
 ## Flashing
 http://forum.espruino.com/conversations/311849/
 

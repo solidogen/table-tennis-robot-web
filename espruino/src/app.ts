@@ -58,9 +58,14 @@ function fetchDiodeStatus() {
 
 function connectToWifi() {
   wifi.setHostname('esp-tt')
-  wifi.connect(ssid, { password: wifiPassword }, function (err?: string) {
-    console.log('connected? err=', err, 'info=', wifi.getIP())
-    fetchDiodeStatus()
+  wifi.connect(ssid, { password: wifiPassword }, function (error?: string) {
+    if (error) {
+      console.log('Failed to connect to wifi', error)
+      setTimeout(() => connectToWifi(), 500)
+    } else {
+      console.log('Connected to wifi', wifi.getIP())
+      fetchDiodeStatus()
+    }
   })
   wifi.save()
 }
@@ -70,13 +75,7 @@ function setupDiode() {
 }
 
 // calling logic here atm, todo move to classes
-
-// this works but it has long delay, to refactor
-setTimeout(() => {
-  console.log('I: DEVICE LOGIC STARTS')
-  setInterval(() => {
-    console.log('I: device running')
-  }, 2000)
-  setupDiode()
-  connectToWifi()
-}, 5000)
+console.log('I: DEVICE LOGIC STARTS')
+setInterval(() => console.log('I: device running'), 2000)
+setupDiode()
+connectToWifi()
