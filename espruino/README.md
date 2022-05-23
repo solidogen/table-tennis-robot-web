@@ -18,6 +18,7 @@ A few npm (internally gulp) scripts exist:
 - build (compilation only)
 - espruino-console (opens console I/O, we can read from console.log and give commands like `save()`)
 - send-to-espruino-console (sends the program to the board, writes to console output if it's open. needs build script first)
+- EXTRA - build-and-send (does both at once)
 
 ## Flashing
 http://forum.espruino.com/conversations/311849/

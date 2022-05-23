@@ -118,3 +118,5 @@ gulp.task("send-to-espurino-console", send_to_espruino_console);
 gulp.task("clear-espurino-watch-file", clear_espruino_watch_file);
 
 gulp.task("espruino-console", gulp.series("clear-espurino-watch-file", espruino_console));
+
+gulp.task("build-and-send", gulp.series("build", "send-to-espurino-console"))

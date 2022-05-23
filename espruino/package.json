@@ -9,7 +9,8 @@
   "scripts": {
     "build": "gulp build",
     "send-to-espruino-console": "gulp send-to-espruino-console",
-    "espruino-console": "gulp espruino-console"
+    "espruino-console": "gulp espruino-console",
+    "build-and-send": "gulp build-and-send"
   },
   "author": "Stanislav Berkov",
   "license": "ISC",

@@ -79,3 +79,6 @@ console.log('I: DEVICE LOGIC STARTS')
 setInterval(() => console.log('I: device running'), 2000)
 setupDiode()
 connectToWifi()
+
+// save program to flash memory
+save()
