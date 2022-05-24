@@ -34,6 +34,18 @@
             "presentation": {
                 "focus": true
             }
+        },
+        {
+            "label": "build-and-send",
+            "group": "build",
+            "type": "gulp",
+            "task": "build-and-send",
+            "problemMatcher": [
+                "$gulp-tsc"
+            ],
+            "presentation": {
+                "focus": true
+            }
         }
     ]
 }
