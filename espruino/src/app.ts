@@ -1,4 +1,5 @@
 import appConfig from './app-config'
+import { Log } from './utils/Log'
 
 let wifi = require('Wifi')
 let httpClient = require('http')
@@ -8,16 +9,10 @@ const wifiPassword = appConfig.wifiPassword
 
 const getDiodeStatusEndpoint = 'https://tt-robot-web.herokuapp.com/api/diode'
 
-// todo move to utils
-function printObject(object1: Object) {
-  for (const key of Object.keys(object1) as (keyof typeof object1)[]) {
-    console.log(`${key}: ${object1[key]}`)
-  }
-}
 
 function setDiodeStatus(isOn: boolean) {
   NodeMCU.D0.write(isOn)
-  console.log(`Diode state: ${NodeMCU.D0.read()}`)
+  Log.normal(`Diode state: ${NodeMCU.D0.read()}`)
 }
 
 function fetchDiodeStatus() {
@@ -33,8 +28,8 @@ function fetchDiodeStatus() {
       responseBody += data
     })
     res.on('close', function (hadError: boolean) {
-      console.log('\nConnection closed. Had error: ' + hadError)
-      console.log('\nFull response body: ' + responseBody)
+      Log.withFirstLb('Connection closed. Had error: ' + hadError)
+      Log.withFirstLb('Full response body: ' + responseBody)
 
       // handling value, refactor this
       const diodeStatus: boolean = JSON.parse(responseBody)
@@ -45,7 +40,7 @@ function fetchDiodeStatus() {
       }, 1000)
     })
     res.on('error', function (data: any) {
-      console.log('\nResponse error::\n' + data)
+      Log.withFirstLb('Response error::\n' + data)
 
       setTimeout(() => {
         fetchDiodeStatus()
@@ -54,8 +49,8 @@ function fetchDiodeStatus() {
   })
 
   request.on('error', function (data: any) {
-    console.log('\nRequest error:\n' + data) // I have an error here after reconnecting the device, visible in printObject
-    printObject(data)
+    Log.withFirstLb('Request error:\n' + data) // I have an error here after reconnecting the device, visible in printObject
+    Log.printObject(data)
     connectToWifi() // this is probably overkill, I need some return type with extra data from networking wrapper
   })
 }
@@ -64,10 +59,10 @@ function connectToWifi() {
   wifi.setHostname('esp-tt')
   wifi.connect(ssid, { password: wifiPassword }, function (error?: string) {
     if (error) {
-      console.log('Failed to connect to wifi', error)
+      Log.normal('Failed to connect to wifi', error)
       setTimeout(() => connectToWifi(), 500)
     } else {
-      console.log('Connected to wifi', wifi.getIP())
+      Log.normal('Connected to wifi', wifi.getIP())
       fetchDiodeStatus()
     }
   })
@@ -80,8 +75,8 @@ function setupDiode() {
 
 function onInit() {
   // calling logic here atm, todo move to classes
-  console.log('I: DEVICE LOGIC STARTS')
-  setInterval(() => console.log('I: device running'), 2000)
+  Log.withFirstLb('I: DEVICE LOGIC STARTS')
+  setInterval(() => Log.withFirstLb('I: device running'), 2000)
   setupDiode()
   connectToWifi()
 }
