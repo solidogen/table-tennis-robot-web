@@ -51,19 +51,19 @@ function fetchDiodeStatus() {
   request.on('error', function (data: any) {
     Log.withFirstLb('Request error:\n' + data) // I have an error here after reconnecting the device, visible in printObject
     Log.printObject(data)
-    connectToWifi() // this is probably overkill, I need some return type with extra data from networking wrapper
+    connectToWifi(() => fetchDiodeStatus()) // this is probably overkill, I need some return type with extra data from networking wrapper
   })
 }
 
-function connectToWifi() {
+function connectToWifi(onSuccess: () => any) {
   wifi.setHostname('esp-tt')
   wifi.connect(ssid, { password: wifiPassword }, function (error?: string) {
     if (error) {
       Log.normal('Failed to connect to wifi', error)
-      setTimeout(() => connectToWifi(), 500)
+      setTimeout(() => connectToWifi(onSuccess), 500)
     } else {
       Log.normal('Connected to wifi', wifi.getIP())
-      fetchDiodeStatus()
+      onSuccess()
     }
   })
   wifi.save()
@@ -78,7 +78,7 @@ function onInit() {
   Log.withFirstLb('I: DEVICE LOGIC STARTS')
   setInterval(() => Log.withFirstLb('I: device running'), 2000)
   setupDiode()
-  connectToWifi()
+  connectToWifi(() => fetchDiodeStatus())
 }
 
 save() // saves the code to flash memory, then restarts and calls onInit(). this way it works similar to Arduino
