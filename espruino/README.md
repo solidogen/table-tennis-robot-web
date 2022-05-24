@@ -8,8 +8,12 @@ Instead of app-config.yaml, create app-config.user.yaml (already ignored) for sa
 
 ## Code saving to flash memory
 Code can be persisted to espruino-powered board by running `save()` command in espruino console.
-Without it, newly uploaded code will be erased on restart (possibly returning to latest saved code).
-Clear existing program with `clear()` followed by `save()`
+Clear existing program with `clear()` followed by `save()`.
+
+`save()` can also be invoked from user code, which is currently the last line in the app.ts.
+After save is called, device restarts and `onInit` function is called, which starts the actual program.
+
+`save()` also persists the current state of variables/etc, so it's best to call before doing anything.
 
 Source: https://www.espruino.com/Saving 
 

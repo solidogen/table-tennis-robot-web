@@ -78,11 +78,12 @@ function setupDiode() {
   NodeMCU.D0.mode('output')
 }
 
-// calling logic here atm, todo move to classes
-console.log('I: DEVICE LOGIC STARTS')
-setInterval(() => console.log('I: device running'), 2000)
-setupDiode()
-connectToWifi()
+function onInit() {
+  // calling logic here atm, todo move to classes
+  console.log('I: DEVICE LOGIC STARTS')
+  setInterval(() => console.log('I: device running'), 2000)
+  setupDiode()
+  connectToWifi()
+}
 
-// save program to flash memory
-save()
+save() // saves the code to flash memory, then restarts and calls onInit(). this way it works similar to Arduino
