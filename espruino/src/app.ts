@@ -1,5 +1,5 @@
-import { Log } from './utils/Log'
-import { WifiManager } from "./utils/WifiManager"
+import { Log } from "Log"
+import { WifiManager } from "WifiManager"
 
 let httpClient = require('http')
 

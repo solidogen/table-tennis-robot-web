@@ -6,7 +6,8 @@
       "es2015",
       "dom" // setInterval, console
     ], 
-    "strict": true 
+    "strict": true,
+    "baseUrl": "src"
   },
   "include": [
     "src/**/*.ts"
