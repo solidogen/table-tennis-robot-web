@@ -46,6 +46,10 @@ function fetchDiodeStatus() {
     })
     res.on('error', function (data: any) {
       console.log('\nResponse error::\n' + data)
+
+      setTimeout(() => {
+        fetchDiodeStatus()
+      }, 1000)
     })
   })
 
