@@ -27,7 +27,7 @@ A few npm (internally gulp) scripts exist:
 ## Bugs
 There are issues with nested imports in files. If file A imports file B, and file B imports file C, file C won't be found most of the times.
 Issue is inside bundle.js `Modules.addCached` calls which are not in order.
-Workaround is to have flat file structure. Also non-relative imports might help, but it didn't at the time.
+Workaround is to have flat file structure. Relative imports are a must and are forced in `.vscode/settings.json`
 If issues will still arise, idea is to edit gulp task `prepare_for_espruino` and analyze/swap/edit those `Modules.addCached` lines.
 
 ## Flashing
