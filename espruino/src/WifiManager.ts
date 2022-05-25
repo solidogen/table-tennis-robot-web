@@ -1,5 +1,5 @@
-import appConfig from "app-config"
-import { Log } from "Log"
+import appConfig from "./app-config"
+import { Log } from "./Log"
 
 let wifi = require('Wifi')
 
